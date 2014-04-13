@@ -1,4 +1,4 @@
-AspNet Mvc CRUD With Ajax Example
+AspNet Mvc 3 CRUD With Ajax Example
 ============================
 
 An example of a simple CRUD website with an ajax call using Asp.net MVC.
