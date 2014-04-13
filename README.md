@@ -7,4 +7,4 @@ I created a one table, 6 column Sql Compact database and then used Entity Framew
 
 Next I used the edmx model to add a ADO.NET DbContext Generator to create the data infrastructure.
 
-The biggest challenge was re-installing visual studio 2010, in this case Visual Web Developer 2010 express, and all the necessary packages.
+The biggest challenge was re-installing visual studio 2010, in this case Visual Web Developer 2010 express, and all the necessary packages.  I considered using an EF Code First approach, but I figured I would go Model-First since I haven't used that approach as often with EF.
