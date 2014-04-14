@@ -29,6 +29,7 @@ namespace CRUDAjaxExampleWeb.Models
         public System.DateTime BirthDate { get; set; }
 
         [DisplayName("Email Address")]
+        [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string EmailAddress { get; set; }
 
         public int Age
