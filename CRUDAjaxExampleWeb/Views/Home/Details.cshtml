@@ -1,0 +1,63 @@
+﻿@model CRUDAjaxExampleWeb.Models.Person
+@{
+    ViewBag.Title = "Details";
+}
+
+<fieldset class="row">
+    <legend>Person</legend>
+    <div class="row">
+        <div class="col-md-2">
+            First Name</div>
+        <div class="col-md-3">
+            <b>@Html.DisplayFor(model => model.FirstName)</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Middle Name</div>
+        <div class="col-md-3">
+            <b>@Html.DisplayFor(model => model.MiddleName)</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Last Name</div>
+        <div class="col-md-3">
+            <b>@Html.DisplayFor(model => model.LastName)</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Birth Date</div>
+        <div class="col-md-3">
+            <b>@Model.BirthDate.ToString("d")</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Email Address</div>
+        <div class="col-md-3">
+            <b>@Html.DisplayFor(model => model.EmailAddress)</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Age:</div>
+        <div class="col-md-4">
+            <div style="position: relative; display: none" class="loading-indicator-container">
+                <div style="position: absolute">
+                    <img src="../../Content/ajax-loader.gif" alt="loading indicator"/>
+                </div>
+            </div>
+            <b class="age-result-container">Not Calculated Yet</b>
+        </div>
+    </div>
+</fieldset>
+<div class="row" style="padding-top: 10px">
+    <div style="display: none" id="person-id-container">@Model.Id</div>
+    <div class="btn btn-default" id="age-calc-btn">
+        Calculate Age
+    </div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+</p>
