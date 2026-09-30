@@ -1,0 +1,86 @@
+# GitHub survey: m4bwav/AspNetMvcCRUDWithAjaxExample (2026-09-30T13:34Z)
+
+## Repository
+$ gh repo view m4bwav/AspNetMvcCRUDWithAjaxExample --json name,description,defaultBranchRef,pushedAt,createdAt,licenseInfo,stargazerCount,forkCount,isArchived,homepageUrl --jq '{name,description,defaultBranch:.defaultBranchRef.name,pushedAt,createdAt,license:.licenseInfo.key,stars:.stargazerCount,forks:.forkCount,archived:.isArchived,homepage:.homepageUrl}'
+{"archived":false,"createdAt":"2014-04-12T21:50:50Z","defaultBranch":"master","description":"An example of a simple CRUD website with an ajax call using Asp.net MVC","forks":1,"homepage":"","license":"mit","name":"AspNetMvcCRUDWithAjaxExample","pushedAt":"2014-04-27T02:34:36Z","stars":2}
+
+## Settings and security features
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample --jq '{delete_branch_on_merge, has_wiki, has_projects, allow_squash_merge, web_commit_signoff_required, security_and_analysis}'
+{"allow_squash_merge":true,"delete_branch_on_merge":false,"has_projects":true,"has_wiki":true,"security_and_analysis":{"dependabot_security_updates":{"status":"disabled"},"secret_scanning":{"status":"disabled"},"secret_scanning_non_provider_patterns":{"status":"disabled"},"secret_scanning_push_protection":{"status":"disabled"},"secret_scanning_validity_checks":{"status":"disabled"}},"web_commit_signoff_required":false}
+
+## Default workflow permissions
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/actions/permissions/workflow
+{"default_workflow_permissions":"write","can_approve_pull_request_reviews":true}
+## Branches
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/branches --paginate --jq '.[].name'
+master
+
+## Rulesets and branch protection
+$ r=$(gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/rulesets --jq '.[] | "\(.id) \(.name) \(.enforcement)"'); echo "${r:-(no rulesets)}"; if p=$(gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/branches/$(gh repo view m4bwav/AspNetMvcCRUDWithAjaxExample --json defaultBranchRef --jq .defaultBranchRef.name)/protection --jq . 2>/dev/null); then echo "$p"; else echo '(no classic branch protection)'; fi
+(no rulesets)
+(no classic branch protection)
+
+## Issues (all states)
+$ gh issue list -R m4bwav/AspNetMvcCRUDWithAjaxExample --state all --limit 100 --json number,title,state,author,createdAt,closedAt --jq '.[] | "#\(.number) \(.state) \(.createdAt[:10]) \(.author.login): \(.title)"'
+
+## Pull requests (all states)
+$ gh pr list -R m4bwav/AspNetMvcCRUDWithAjaxExample --state all --limit 100 --json number,title,state,author,headRefName,createdAt --jq '.[] | "#\(.number) \(.state) \(.createdAt[:10]) \(.author.login) [\(.headRefName)]: \(.title)"'
+
+## Dependabot alerts switched on
+$ if gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/vulnerability-alerts --silent 2>/dev/null; then echo 'on'; else echo 'OFF: the two alert sections below answer 403, and gh adds a hint about the admin:repo_hook scope that does not apply to them (FizzBuzzPlus, 2026-09-29)'; fi
+OFF: the two alert sections below answer 403, and gh adds a hint about the admin:repo_hook scope that does not apply to them (FizzBuzzPlus, 2026-09-29)
+
+## Open Dependabot alerts by severity, package and scope
+$ gh api "repos/m4bwav/AspNetMvcCRUDWithAjaxExample/dependabot/alerts?state=open&per_page=100" --paginate --jq '.[] | "\(.security_advisory.severity) \(.dependency.package.name) \(.dependency.scope)"' | sort | uniq -c | sort -rn
+gh: Dependabot alerts are disabled for this repository. (HTTP 403)
+gh: This API operation needs the "admin:repo_hook" scope. To request it, run:  gh auth refresh -h github.com -s admin:repo_hook
+      1 {"message":"Dependabot alerts are disabled for this repository.","documentation_url":"https://docs.github.com/rest/dependabot/alerts#list-dependabot-alerts-for-a-repository","status":"403"}
+
+## Open Dependabot alerts, count
+$ gh api "repos/m4bwav/AspNetMvcCRUDWithAjaxExample/dependabot/alerts?state=open&per_page=100" --paginate --jq length
+{"message":"Dependabot alerts are disabled for this repository.","documentation_url":"https://docs.github.com/rest/dependabot/alerts#list-dependabot-alerts-for-a-repository","status":"403"}gh: Dependabot alerts are disabled for this repository. (HTTP 403)
+gh: This API operation needs the "admin:repo_hook" scope. To request it, run:  gh auth refresh -h github.com -s admin:repo_hook
+(command failed: exit 1)
+
+## Webhooks (dead services leave these)
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/hooks --jq '.[] | "\(.id) \(.config.url) active=\(.active) events=\(.events|join(","))"'
+
+## Actions secrets (count) and variables
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/actions/secrets --jq '{total_count, names:[.secrets[].name]}'; gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/actions/variables --jq '{total_count, names:[.variables[].name]}'
+{"names":[],"total_count":0}
+{"names":[],"total_count":0}
+
+## Environments
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/environments --jq '.environments[]? | "\(.name) reviewers=\([.protection_rules[]? | select(.type=="required_reviewers") | .reviewers[]?.reviewer.login] | join(","))"'
+
+## Workflows
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/actions/workflows --jq '.workflows[] | "\(.name) \(.path) \(.state)"'
+
+## Action pins in the default branch's workflows, with each action's runtime
+$ action_pins (git tree, contents API, action.yml at each ref)
+(no workflow files)
+
+## Forks
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/forks --jq '.[] | "\(.full_name) pushed=\(.pushed_at[:10])"'
+NatalieGreen/AspNetMvcCRUDWithAjaxExample pushed=2014-04-27
+
+## Releases and tags
+$ gh release list -R m4bwav/AspNetMvcCRUDWithAjaxExample --limit 20; gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/tags --jq '.[].name' | head -30
+
+## Dead-service files in the default branch
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/git/trees/HEAD?recursive=1 --jq '.tree[].path' | grep -Ei '^(\.travis\.yml|\.snyk|\.synk|\.sonarcloud\.properties|sonar-project\.properties|\.coveralls\.yml|codecov\.yml|\.codecov\.yml|appveyor\.yml|\.circleci/|\.npmignore|\.nuspec|\.vscode/)' || echo '(none)'
+(none)
+
+## Dotfiles at the root of the default branch
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/contents --jq '.[].name' | grep '^\.' || echo '(none)'
+.gitignore
+
+## Branches with no open pull request (stale work or bot leftovers; each needs a disposition)
+$ comm -23 <(gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/branches --paginate --jq '.[].name' | sort) <( (gh pr list -R m4bwav/AspNetMvcCRUDWithAjaxExample --state open --limit 200 --json headRefName --jq '.[].headRefName'; gh repo view m4bwav/AspNetMvcCRUDWithAjaxExample --json defaultBranchRef --jq .defaultBranchRef.name) | sort) || echo '(none)'
+
+## Badges in the README
+$ gh api repos/m4bwav/AspNetMvcCRUDWithAjaxExample/readme --jq .content | base64 -d 2>/dev/null | grep -Eo 'https?://[^ )]*(shields\.io|travis-ci|david-dm|snyk\.io|coveralls|codecov|gitter|sonarcloud|nodei\.co|badgen|badge)[^ )]*' | sort -u || echo '(none)'
+
+## Things only the maintainer can see
+- Installed GitHub Apps and authorized OAuth apps: github.com/settings/installations and github.com/settings/applications (the API refuses the gh token).
+- Whether a token in history is still live: revoke it at the provider regardless.

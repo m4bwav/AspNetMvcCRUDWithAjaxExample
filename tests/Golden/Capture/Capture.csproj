@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Golden capture of the 2014 site (package-modernize, repository variant for websites, Phase 0). The site was never
+    published, so the reference is the running 2014 site built from the frozen commit (tag v1.0.0, df9fb35). This
+    program is the browser: it asks the site the questions in Cases.cs over HTTP and records the answers. It runs on the
+    capture machine against a site hosted there (see ../capture-old-site.ps1). The golden replay compiles Cases.cs,
+    SiteClient.cs, Page.cs and Json.cs unchanged against the new site, so the replay asks the same questions.
+    The Directory.* files in ../ are empty on purpose: they stop MSBuild from importing the repository's own props, so
+    later changes to the repository cannot change this program.
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <RootNamespace>GoldenCapture</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.8.2" />
+  </ItemGroup>
+
+</Project>
