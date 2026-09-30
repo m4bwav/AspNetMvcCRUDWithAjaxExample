@@ -1,0 +1,39 @@
+# Throwaway workflow on the scratch branch golden-capture (package-modernize, repository variant for websites, Phase 0):
+# builds the 2014 site from the frozen commit, hosts it under IIS Express, records it twice and uploads the recording.
+# It never reaches master; the branch is deleted after the recording is committed on v2.
+name: golden-capture
+
+on:
+  push:
+    branches: [golden-capture]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: repo
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: df9fb3532b6c476ca2a9f204cc6ff8c46cea546d
+          path: old
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+      - name: Capture the 2014 site
+        shell: pwsh
+        run: ./repo/tests/Golden/capture-old-site.ps1 -Old old -Out out
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: golden-capture
+          path: out
+          retention-days: 7
