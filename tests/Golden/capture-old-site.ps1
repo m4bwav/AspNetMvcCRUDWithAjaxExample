@@ -10,7 +10,7 @@
 #   - the .NET Framework 4.0 reference assemblies come from the Microsoft.NETFramework.ReferenceAssemblies.net40 package;
 #   - ASP.NET MVC 3, Web Pages 1.0 and Razor 1.0 (GAC installs in 2014) come from their Microsoft NuGet packages, at the
 #     versions current in April 2014, copied into bin/ ("bin deployment", a supported MVC 3 setup);
-#   - SQL Server Compact 4.0 SP1 is installed on the runner from Microsoft's signed runtime installers (x86 and x64),
+#   - SQL Server Compact 4.0 SP1 is installed on the runner from Microsoft's signed x64 runtime installer,
 #     as it was installed on the 2014 machine (GAC, machine.config provider, and the Entity Framework 4 provider dll
 #     that the NuGet package lacks);
 #   - the Visual Studio 2010 web application targets, which the project imports by a v10.0 path, are the installed
@@ -39,8 +39,9 @@ $packages = @(
     @{ Id = 'Microsoft.NETFramework.ReferenceAssemblies.net40'; Version = '1.0.3'; Sha256 = '54d6e20a1b61caf79395d6d71d091265e81f5a5705ac4ae52af45ca143c3c694' }
 )
 
+# The x86 package refuses a 64-bit Windows in its launch conditions ("not supported on x64 Operating System", run
+# 36724486565); the x64 package is the one for a 64-bit machine.
 $sqlce = @(
-    @{ Arch = 'x86'; Sha256 = '44ca2585c7bd9ef66979c1c903a8a053b922a69beaad4dcc47015cd99fcf3cd4' },
     @{ Arch = 'x64'; Sha256 = '443d149c7a1a3d5c26189bf727a55287341fad620225fd7aed610ba1762286e4' }
 )
 $sqlceUrl = 'https://download.microsoft.com/download/f/f/d/ffdf76e3-9e55-41da-a750-1798b971936c/ENU/SSCERuntime_{0}-ENU.exe'
@@ -85,7 +86,7 @@ foreach ($p in $packages) {
     Note "package.$($p.Id)" "$($p.Version) sha256 $hash"
 }
 
-Step 'SQL Server Compact 4.0 SP1 runtime, x86 then x64, from Microsoft'
+Step 'SQL Server Compact 4.0 SP1 runtime (x64), from Microsoft'
 foreach ($r in $sqlce) {
     $exe = Join-Path $work "SSCERuntime_$($r.Arch)-ENU.exe"
     Invoke-WebRequest -Uri ($sqlceUrl -f $r.Arch) -OutFile $exe
