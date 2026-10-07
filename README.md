@@ -1,6 +1,8 @@
 AspNet Mvc 3 CRUD With Ajax Example
 ============================
 
+![Clerks at desks in a vintage post office sorting room under brass pneumatic tubes, with a wall of pigeonholes](https://raw.githubusercontent.com/m4bwav/AspNetMvcCRUDWithAjaxExample/master/.github/images/banner.jpg)
+
 An example of a simple CRUD website with an ajax call using Asp.net MVC.
 
 I created a one table, 6 column Sql Compact database and then used Entity Framework's Model-First approach to generate an edmx model.  I prefer Code-First models, but I figured for this one, I would take the opposite approach.
